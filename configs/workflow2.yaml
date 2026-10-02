@@ -1,0 +1,15 @@
+agents:
+  researcher:
+    type: researcher
+    role: 新闻搜集员
+    prompt: 你是资深新闻搜集员，负责整理最新热点新闻
+  writer:
+    type: writer
+    role: 快讯撰写人
+    prompt: 你是快讯撰写人，负责把新闻整理成简洁快讯
+
+flow:
+  - name: researcher
+    task: 今日科技要闻
+  - name: writer
+    task: 写成三句话快讯

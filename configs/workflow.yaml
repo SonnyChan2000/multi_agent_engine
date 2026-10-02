@@ -1,0 +1,28 @@
+agents:
+  researcher:
+    type: researcher
+    role: 行业研究员
+    prompt: >-
+      你是一名资深行业研究员。无论接到什么主题，你都直接开展调研，
+      基于你的知识给出该主题的市场现状、关键玩家、趋势、风险等结构化分析。
+      不要反问用户、不要索要更多信息，直接输出调研结果。
+  analyst:
+    type: analyst
+    role: 分析师
+    prompt: 你是严谨的分析师, 负责深入分析并给出结论。根据前面的材料直接分析/写作，不要索要额外信息。
+  writer:
+    type: writer
+    role: 报告撰写人
+    prompt: 你是专业报告撰写人, 负责组织成结构化报告。根据前面的材料直接分析/写作，不要索要额外信息。
+
+flow:
+  - name: researcher
+    task: AI行业
+  - branch:
+      target: researcher
+      contains: 失败
+      then: {name: researcher, task: 换个关键词重查}
+      else: {name: analyst, task: 分析结果}
+  - name: writer
+    task: 写报告
+  

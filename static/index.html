@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Multi-Agent 工作流演示</title>
+<style>
+  body { font-family: sans-serif; max-width: 800px; margin: 40px auto; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 12px 0; }
+  h2 { margin: 0 0 8px; }
+  pre { white-space: pre-wrap; background: #f6f6f6; padding: 12px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<h1>Multi-Agent 工作流引擎</h1>
+<input id="task" placeholder="输入主题，如：AI行业" style="width:60%;padding:8px">
+<button onclick="run()" style="padding:8px 16px">开始协作</button>
+<div id="result"></div>
+
+<script>
+async function run() {
+  const task = document.getElementById("task").value;
+  const res = await fetch("/run", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({task: task})
+  });
+  const data = await res.json();   // 返回 {researcher:..., analyst:..., writer:...}
+
+  const result = document.getElementById("result");
+  result.innerHTML = Object.entries(data)
+    .map(([name, text]) => `
+      <div class="card">
+        <h2>🏷 ${name}</h2>
+        <pre>${text}</pre>
+      </div>`)
+    .join("");
+}
+</script>
+</body>
+</html>
