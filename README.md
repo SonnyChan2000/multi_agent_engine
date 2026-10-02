@@ -87,7 +87,6 @@ curl -X POST http://127.0.0.1:8000/run \
 
 > 输入 `AI行业` 后，三个 Agent 协作产出的完整结果：
 > ![alt text](multi_agent_engine.png)
-
 ## 🛠 技术栈
 
 Python · FastAPI · Uvicorn · openai · PyYAML · python-dotenv · 智谱 GLM
